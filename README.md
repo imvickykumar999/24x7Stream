@@ -5,8 +5,38 @@ This repository contains shell scripts for streaming video content to YouTube Li
 ## Prerequisites
 
 - **FFmpeg** installed on your system
-- **LoopVideo.mp4** video file in the same directory as the scripts
+- **Python 3.6+** for video downloading scripts
+- **LoopVideo.mp4** video file in the same directory as the scripts (or download one using the provided script)
 - Valid stream keys for the platforms you want to use
+
+## Video Download and Preparation
+
+### Download YouTube Videos
+Use the included Python script to download videos from YouTube for streaming:
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Download a YouTube video (replace with your URL)
+python3 download_youtube.py "https://www.youtube.com/shorts/lOPDr8C4z_A"
+
+# Download with specific format
+python3 download_youtube.py "https://youtu.be/VIDEO_ID" -f mp4
+
+# Download audio only
+python3 download_youtube.py "https://youtu.be/VIDEO_ID" -f audio -o music
+```
+
+**Supported formats:**
+- `best` - Best available quality (default)
+- `mp4` - MP4 format
+- `webm` - WebM format
+- `audio` - Audio only (MP3)
+- `worst` - Lowest quality
+
+### Prepare Video for Streaming
+Once downloaded, you can rename your video to `LoopVideo.mp4` or update the scripts to use your video filename.
 
 ## Installation
 
@@ -27,13 +57,39 @@ Download from the official FFmpeg website or use Chocolatey:
 choco install ffmpeg
 ```
 
+## Environment Configuration
+
+### Important: Secure Your Stream Keys
+1. Copy the example configuration:
+   ```bash
+   cp config.env.example config.env
+   ```
+2. Edit `config.env` with your actual stream keys
+3. **Never commit `config.env` to version control** (it's in `.gitignore`)
+4. Keep your stream keys secure and private
+
+### Configuration File Structure
+```
+# Video file to stream (download using download_youtube.py)
+VIDEO_FILE=your_video_file.mp4
+
+# YouTube Live Stream Key
+YOUTUBE_STREAM_KEY=your_youtube_key
+
+# Instagram Live Stream Key
+INSTAGRAM_STREAM_KEY=your_instagram_key
+```
+
 ## Setup
 
 ### YouTube Live Setup
 1. Go to [YouTube Live](https://www.youtube.com/live) and start a new live stream
-2. Copy the **Stream URL** and **Stream Key**
-3. Replace the RTMP URL in `stream_yt.sh` with your YouTube stream URL
-4. Example: `rtmp://a.rtmp.youtube.com/live2/YOUR_STREAM_KEY`
+2. Copy the **Stream Key** from YouTube
+3. Add it to your `config.env` file:
+   ```bash
+   YOUTUBE_STREAM_KEY=your_youtube_stream_key_here
+   ```
+4. The script will automatically use this key from the environment file
 
 ### Instagram Live Setup
 **Note**: Instagram doesn't provide RTMP keys directly. Here are the methods to get your stream key:
@@ -71,12 +127,16 @@ choco install ffmpeg
 
 **Quick Start**:
 ```bash
-# Option 1: Use the automated setup script
+# Use the automated setup script (recommended)
 ./setup_streamlabs_key.sh
-
-# Option 2: Manual replacement
-sed -i 's/YOUR_INSTAGRAM_STREAM_KEY/your_actual_key_here/' stream_ig.sh
 ./stream_ig.sh
+```
+
+**Manual Setup**:
+Edit `config.env` and add your video file and stream keys:
+```bash
+VIDEO_FILE=your_downloaded_video.mp4
+INSTAGRAM_STREAM_KEY=your_stream_key_from_streamlabs
 ```
 
 #### Method 0: Meta Business Manager/Creator Studio
