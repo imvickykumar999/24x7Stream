@@ -27,6 +27,6 @@ if [ ! -f "$VIDEO_FILE" ]; then
 fi
 
 ffmpeg -re -stream_loop -1 -i "$VIDEO_FILE" \
--c:v libx264 -preset superfast -b:v 2000k -maxrate 2000k -bufsize 4000k \
+-c:v libx264 -preset superfast -b:v 6800k -maxrate 6800k -bufsize 13600k \
 -pix_fmt yuv420p -g 60 -c:a aac -b:a 128k -ar 44100 \
--f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_STREAM_KEY" > stream_yt_log.txt 2>&1
+-f flv "rtmp://a.rtmp.youtube.com/live2/$YOUTUBE_STREAM_KEY" > logs/stream_yt_log.txt 2>&1

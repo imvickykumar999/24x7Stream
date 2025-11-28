@@ -14,9 +14,13 @@ if [ -z "$VIDEO_FILE" ]; then
     exit 1
 fi
 
+if [ -z "$INSTAGRAM_RTMP_URL" ]; then
+    echo "Error: INSTAGRAM_RTMP_URL not set in config.env"
+    exit 1
+fi
+
 if [ -z "$INSTAGRAM_STREAM_KEY" ] || [ "$INSTAGRAM_STREAM_KEY" = "YOUR_INSTAGRAM_STREAM_KEY" ]; then
     echo "Error: INSTAGRAM_STREAM_KEY not set in config.env"
-    echo "Please run: ./setup_streamlabs_key.sh"
     exit 1
 fi
 
@@ -30,4 +34,4 @@ fi
 ffmpeg -re -stream_loop -1 -i "$VIDEO_FILE" \
 -c:v libx264 -preset superfast -b:v 2000k -maxrate 2000k -bufsize 4000k \
 -pix_fmt yuv420p -g 60 -c:a aac -b:a 128k -ar 44100 \
--f flv "rtmp://live-api-s.facebook.com:80/rtmp/$INSTAGRAM_STREAM_KEY" > stream_ig_log.txt 2>&1
+-f flv -rtmp_live live "${INSTAGRAM_RTMP_URL}${INSTAGRAM_STREAM_KEY}" > logs/stream_ig_log.txt 2>&1
