@@ -2,6 +2,9 @@
 
 This repository contains shell scripts for streaming video content to YouTube Live and Instagram Live using FFmpeg.
 
+<img width="1535" height="981" alt="image" src="https://github.com/user-attachments/assets/1296a1f4-9ece-4838-9611-a31091999d04" />
+<img width="1535" height="982" alt="image" src="https://github.com/user-attachments/assets/5967b845-9c19-46f4-893e-141dfedf9c4d" />
+
 ## Prerequisites
 
 - **FFmpeg** installed on your system
