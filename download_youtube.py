@@ -98,7 +98,7 @@ def main():
     if len(sys.argv) == 1:
         print("🎬 YouTube Video Downloader")
         print("=" * 40)
-        print("Usage: python3 download_youtube.py [URL] [OPTIONS]")
+        print("Usage: python3 download_youtube.py https://youtu.be/6g-Ot_kwutA")
         print("")
         print("Examples:")
         print("  python3 download_youtube.py https://www.youtube.com/shorts/lOPDr8C4z_A")
