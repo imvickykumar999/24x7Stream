@@ -33,6 +33,5 @@ fi
 
 ffmpeg -re -stream_loop -1 -i "$VIDEO_FILE" \
 -c:v libx264 -preset superfast -b:v 2000k -maxrate 2000k -bufsize 4000k \
--vf "crop=in_h*9/16:in_h,scale=720:1280" \
 -pix_fmt yuv420p -g 60 -c:a aac -b:a 128k -ar 44100 \
--f flv -rtmp_live live "${INSTAGRAM_RTMP_URL}${INSTAGRAM_STREAM_KEY}" > logs/stream_ig_log.txt 2>&1
+-f flv -rtmp_live live "${INSTAGRAM_RTMP_URL}${INSTAGRAM_STREAM_KEY}"
